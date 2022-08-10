@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import React from 'react';
 
-import { MediaContainer, TextEntry, Footer } from './components/index.jsx';
+import { MediaContainer, TextEntry, Footer } from './components/component_index.jsx';
 
 const root = createRoot(document.getElementById('root'));
 
