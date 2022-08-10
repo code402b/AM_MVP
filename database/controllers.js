@@ -1,12 +1,12 @@
-const MVP = require('./models.js');
+const Note = require('./index.js');
 
 module.exports = {
   getNotes() {
-    return MVP.find().exec();
+    return Note.find().exec();
   },
 
   addNoteOrUpdate(noteObj) {
-    return MVP.findOneAndUpdate(
+    return Note.findOneAndUpdate(
       {
         user: noteObj.user,
         text: noteObj.text,

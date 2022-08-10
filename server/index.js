@@ -8,7 +8,7 @@ const controller = require('../database/controllers.js');
 const API = require('./API.js');
 
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
