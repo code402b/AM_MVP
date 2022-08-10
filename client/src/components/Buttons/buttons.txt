@@ -1,0 +1,5 @@
+ActionButton
+ImageSpawnButton
+TextSpawnButton
+SaveNoteButton
+DiscardNoteButton

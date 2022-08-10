@@ -1,11 +1,17 @@
 import { createRoot } from 'react-dom/client';
 import React from 'react';
 
+import { MediaContainer, TextEntry, Footer } from './components/index.jsx';
+
 const root = createRoot(document.getElementById('root'));
 
 function App() {
   return (
-    <div>Hello Tragic World!</div>
+    <>
+      <MediaContainer />
+      <TextEntry />
+      <Footer />
+    </>
   );
 }
 
