@@ -1,6 +1,8 @@
 const axios = require('axios');
 
 const baseUrlMET = 'https://collectionapi.metmuseum.org/public/collection/v1/';
+const waltWhitmanBaseURL = 'https://pafmon-walt-whitman-poems.p.rapidapi.com/poems/';
+const leavesOfGrassTitles = require('./APIdata.js');
 
 module.exports = {
 
@@ -21,6 +23,13 @@ module.exports = {
       METQueryEndpoint = `${METQueryEndpoint}&medium=${medium}`;
     }
     axios.get(METQueryEndpoint);
+  },
+
+  getWaltWhitmanPoem() {
+    const randomIndex = Math.floor(Math.random() * 400);
+    const title = leavesOfGrassTitles[randomIndex];
+    const waltWhitmanPoemEndpoint = `${waltWhitmanBaseURL}${title}`;
+    axios.get(waltWhitmanPoemEndpoint);
   },
 
 };
