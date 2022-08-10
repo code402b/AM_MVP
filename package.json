@@ -15,8 +15,11 @@
     "styled-components": "^5.3.5"
   },
   "scripts": {
-    "dev": "npx webpack --watch",
-    "serve": "webpack serve"
+    "dev-server": "webpack serve",
+    "client-dev": "npx webpack --watch",
+    "server-dev": "npx nodemon server/index.js -w",
+    "start": "node server/index.js",
+    "build": "npx webpack"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
