@@ -22,6 +22,9 @@ import {
   LogoutButton,
 } from './components/Userfront.js';
 
+
+
+
 function App() {
   return (
     <Router>
@@ -54,7 +57,13 @@ function App() {
   );
 }
 
+// ---- Userfront components ----
 function Home() {
+  if (Userfront.accessToken()) {
+    return (
+      <Navigate replace to="/dashboard" />
+    );
+  }
   return (
     <div>
       <h2>Sign Up</h2>
@@ -64,6 +73,11 @@ function Home() {
 }
 
 function Login() {
+  if (Userfront.accessToken()) {
+    return (
+      <Navigate replace to="/dashboard" />
+    );
+  }
   return (
     <div>
       <h2>Login</h2>
