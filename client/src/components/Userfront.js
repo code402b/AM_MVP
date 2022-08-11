@@ -17,3 +17,10 @@ const PasswordResetForm = Userfront.build({
 const LogoutButton = Userfront.build({
   toolId: 'anlbao',
 });
+
+export {
+  SignupForm,
+  LoginForm,
+  PasswordResetForm,
+  LogoutButton,
+};

@@ -5,11 +5,22 @@ import {
   Routes,
   Route,
   Link,
+  Navigate,
 } from 'react-router-dom';
+import Userfront from '@userfront/react';
 
-import { MediaContainer, TextEntry, Footer } from './components/component_index.jsx';
+import {
+  MediaContainer,
+  TextEntry,
+  Footer,
+} from './components/component_index.jsx';
 
-const root = createRoot(document.getElementById('root'));
+import {
+  SignupForm,
+  LoginForm,
+  PasswordResetForm,
+  LogoutButton,
+} from './components/Userfront.js';
 
 function App() {
   return (
@@ -44,23 +55,51 @@ function App() {
 }
 
 function Home() {
-  return <h2>Home</h2>;
+  return (
+    <div>
+      <h2>Sign Up</h2>
+      <SignupForm />
+    </div>
+  );
 }
 
 function Login() {
-  return <h2>Login</h2>;
+  return (
+    <div>
+      <h2>Login</h2>
+      <LoginForm />
+    </div>
+  );
 }
 
 function PasswordReset() {
-  return <h2>Password Reset</h2>;
+  return (
+    <div>
+      <h2>Password Reset</h2>
+      <PasswordResetForm />
+    </div>
+  );
 }
 
 function Dashboard() {
-  return <h2>Dashboard</h2>;
+  if (!Userfront.accessToken()) {
+    return (
+      <Navigate replace to="/login" />
+    );
+  }
+  const userData = JSON.stringify(Userfront.user, null, 2);
+  return (
+    <div>
+      <h2>Dashboard</h2>
+      <pre>{userData}</pre>
+      <button type="button" onClick={Userfront.logout}>Logout</button>
+    </div>
+  );
 }
 
 function NotFound() {
   return <h2>404 Page not found</h2>;
 }
 
+const root = createRoot(document.getElementById('root'));
 root.render(<App />);
