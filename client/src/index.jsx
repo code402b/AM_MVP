@@ -79,7 +79,7 @@ function Login() {
     <div id="login">
       <AppHeading />
       <LoginForm />
-      <div id="loginFooter">
+      <div className="authFooter">
         <Link to="/signup">Sign Up</Link>
       </div>
     </div>
@@ -91,6 +91,9 @@ function Signup() {
     <div id="signup">
       <AppHeading />
       <SignupForm />
+      <div className="authFooter">
+        <Link to="/login">Login</Link>
+      </div>
     </div>
   );
 }
