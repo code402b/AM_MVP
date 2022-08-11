@@ -1,3 +1,4 @@
+require('dotenv').config();
 const axios = require('axios');
 
 const baseUrlMET = 'https://collectionapi.metmuseum.org/public/collection/v1/';
@@ -32,7 +33,12 @@ module.exports = {
     const randomIndex = Math.floor(Math.random() * 400);
     const title = leavesOfGrassTitles[randomIndex];
     const waltWhitmanPoemEndpoint = `${waltWhitmanBaseURL}${title}`;
-    axios.get(waltWhitmanPoemEndpoint);
+    axios.get(waltWhitmanPoemEndpoint, {
+      headers: {
+        'X-RapidAPI-Key': process.env.X_RAPID_API_KEY,
+        'X-RapidAPI-Host': process.env.X_RAPID_API_HOST,
+      },
+    });
   },
 
   // "index": "poem-name",

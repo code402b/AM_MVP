@@ -1,8 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
 
 const controller = require('../database/controllers.js');
 const API = require('./API.js');
@@ -20,6 +20,6 @@ app.get('/metAPIObject', API.getMETobject);
 
 app.get('/waltWhitmanPoem', API.getWaltWhitmanPoem);
 
-app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`listening on port ${process.env.PORT}`);
 });
