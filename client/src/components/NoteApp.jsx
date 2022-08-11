@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
 import {
   AppHeading,
@@ -10,6 +11,26 @@ import {
 export default function NoteApp() {
   const [media, setMedia] = useState({});
   const [inputText, setInputText] = useState('');
+
+  const getNewPoem = () => {
+    axios.get('/waltWhitmanPoem')
+      .then(res => {
+        // console.log('poem res', res.data);
+        const poem = {
+          title: res.data.title,
+          text: res.data.text,
+        };
+        setMedia(poem);
+      })
+      .catch(err => console.log(err));
+
+    setMedia({});
+  };
+
+  useEffect(() => {
+    getNewPoem();
+  }, []);
+
   return (
     <>
       <AppHeading />
@@ -21,7 +42,7 @@ export default function NoteApp() {
         setInputText={setInputText}
       />
       <Footer
-        setMedia={setMedia}
+        getNewPoem={getNewPoem}
       />
     </>
   );

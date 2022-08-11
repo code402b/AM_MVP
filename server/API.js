@@ -3,7 +3,7 @@ const axios = require('axios');
 
 const baseUrlMET = 'https://collectionapi.metmuseum.org/public/collection/v1/';
 const waltWhitmanBaseURL = 'https://pafmon-walt-whitman-poems.p.rapidapi.com/poems/';
-const leavesOfGrassTitles = require('./APIdata.js');
+const leavesOfGrassTitles = require('./APIdata.js').wwPoemNames;
 
 module.exports = {
   getMETobject(req, res) {
@@ -30,19 +30,23 @@ module.exports = {
   //  "objectIDs": [...ids]
 
   getWaltWhitmanPoem(req, res) {
-    const randomIndex = Math.floor(Math.random() * 400);
+    const randomIndex = Math.floor(Math.random() * 380);
     const title = leavesOfGrassTitles[randomIndex];
     const waltWhitmanPoemEndpoint = `${waltWhitmanBaseURL}${title}`;
+    console.log('wwe:', waltWhitmanPoemEndpoint);
     axios.get(waltWhitmanPoemEndpoint, {
       headers: {
         'X-RapidAPI-Key': process.env.X_RAPID_API_KEY,
         'X-RapidAPI-Host': process.env.X_RAPID_API_HOST,
       },
     })
-      .then(data => res.send(data))
+      .then(response => {
+        console.log('data:', response.data);
+        res.send(response.data);
+      })
       .catch(err => {
         console.log(err);
-        res.sendStatusCode(500);
+        res.sendStatus(500);
       });
   },
 

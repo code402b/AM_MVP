@@ -29,10 +29,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.get('*', (req, res) => {
-  res.sendfile(path.join(__dirname, '../client/dist/index.html'));
-});
-
 app.get('/notes', authenticateToken, controller.getNotes);
 app.post('/notes', authenticateToken, controller.addNoteOrUpdate);
 
@@ -40,6 +36,10 @@ app.post('/notes', authenticateToken, controller.addNoteOrUpdate);
 app.get('/metAPISearch', API.getMETquery);
 app.get('/metAPIObject', API.getMETobject);
 app.get('/waltWhitmanPoem', API.getWaltWhitmanPoem);
+
+app.get('*', (req, res) => {
+  res.sendfile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`listening on port ${process.env.PORT}`);
