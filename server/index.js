@@ -37,6 +37,7 @@ app.get('/metAPIQuery', API.getMETquery);
 app.get('/metAPIObject', API.getMETobject);
 app.get('/waltWhitmanPoem', API.getWaltWhitmanPoem);
 
+// catch all route for react router
 app.get('*', (req, res) => {
   res.sendfile(path.join(__dirname, '../client/dist/index.html'));
 });

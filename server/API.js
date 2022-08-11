@@ -27,7 +27,7 @@ module.exports = {
     // &isHighlight=true, returns objects marked as significant by the museum
     // const medium = req.body.medium || 'Paintings';
     const query = req.body.query || 'ocean';
-    const METQueryEndpoint = `${baseUrlMET}search?hasImages=true&q=${query}`;
+    // const METQueryEndpoint = `${baseUrlMET}search?hasImages=true&q=${query}`;
     const mediumEndpoint = `${baseUrlMET}search?hasImages=true&medium=Paintings&q=${query}`;
     axios.get(mediumEndpoint)
       .then(response => {
@@ -43,7 +43,6 @@ module.exports = {
     const randomIndex = Math.floor(Math.random() * 380);
     const title = leavesOfGrassTitles[randomIndex];
     const waltWhitmanPoemEndpoint = `${waltWhitmanBaseURL}${title}`;
-    console.log('wwe:', waltWhitmanPoemEndpoint);
     axios.get(waltWhitmanPoemEndpoint, {
       headers: {
         'X-RapidAPI-Key': process.env.X_RAPID_API_KEY,
@@ -51,7 +50,7 @@ module.exports = {
       },
     })
       .then(response => {
-        console.log('data:', response.data);
+        // console.log('data:', response.data);
         res.send(response.data);
       })
       .catch(err => {

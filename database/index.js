@@ -13,6 +13,8 @@ db.on('error', () => {
 const noteSchema = new mongoose.Schema(
   {
     user: { type: String, index: true },
+    userID: { type: String },
+    mediaTitle: String,
     media: String,
     mediaType: { type: String, index: true },
     text: String,

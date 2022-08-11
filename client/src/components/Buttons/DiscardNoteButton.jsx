@@ -1,7 +1,9 @@
 import React from 'react';
 
-export default function DiscardNoteButton() {
+import { ActionButton } from '../Styles/styles_index.js';
+
+export default function DiscardNoteButton({ clickHandler }) {
   return (
-    <div>DiscardNoteButton</div>
+    <ActionButton onClick={() => clickHandler('')}>Clear</ActionButton>
   );
 }

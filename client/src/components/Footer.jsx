@@ -6,10 +6,17 @@ import {
   TextSpawnButton,
   ImageSpawnButton,
   SaveNoteButton,
+  DiscardNoteButton,
 } from './Buttons/button_index.js';
 // import { LogoutButton } from './Userfront.js';
 
-export default function Footer({ getNewPoem, getNewImage, metIDs }) {
+export default function Footer({
+  getNewPoem,
+  getNewImage,
+  metIDs,
+  postNote,
+  setInputText,
+}) {
   const randomImage = () => {
     const imageIdArray = metIDs.objectIDs;
     const randomID = Math.floor(Math.random() * metIDs.total);
@@ -21,7 +28,8 @@ export default function Footer({ getNewPoem, getNewImage, metIDs }) {
     <StyledFooter>
       <TextSpawnButton clickHandler={getNewPoem} />
       <ImageSpawnButton clickHandler={randomImage} />
-      <SaveNoteButton />
+      <SaveNoteButton clickHandler={postNote} />
+      <DiscardNoteButton clickHandler={setInputText} />
     </StyledFooter>
   );
 }
