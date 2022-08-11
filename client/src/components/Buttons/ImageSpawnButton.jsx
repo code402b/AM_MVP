@@ -1,7 +1,9 @@
 import React from 'react';
 
-export default function ImageSpawnButton() {
+import { ActionButton } from '../Styles/styles_index.js';
+
+export default function ImageSpawnButton({ clickHandler }) {
   return (
-    <div>ImageSpawnButton</div>
+    <ActionButton onClick={clickHandler}>IMG</ActionButton>
   );
 }

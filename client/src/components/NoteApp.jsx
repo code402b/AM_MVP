@@ -33,8 +33,25 @@ export default function NoteApp() {
     setMedia({});
   };
 
+  const getNewImage = () => {
+    axios.get('/metAPIObject')
+      .then(res => {
+        // console.log('image res', res.data);
+        const image = {
+          title: res.data.title,
+          culture: res.data.culture,
+          period: res.data.period,
+          URL: res.data.primaryImage,
+          smallURL: res.data.primaryImageSmall,
+          type: 'image',
+        };
+        image.smallURL === '' ? setMedia(image) : getNewImage();
+      })
+      .catch(err => console.log(err));
+  };
+
   // useEffect(() => {
-  //   getNewPoem();
+  //   getNewImage();
   // }, []);
 
   return (
@@ -52,6 +69,7 @@ export default function NoteApp() {
       />
       <Footer
         getNewPoem={getNewPoem}
+        getNewImage={getNewImage}
       />
     </MainFlexContainer>
   );

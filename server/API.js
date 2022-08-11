@@ -7,8 +7,13 @@ const leavesOfGrassTitles = require('./APIdata.js').wwPoemNames;
 
 module.exports = {
   getMETobject(req, res) {
-    const METObjectEndpoint = `${baseUrlMET}objects/${id}`;
-    axios.get(METObjectEndpoint);
+    const randomID = Math.floor(Math.random() * 8000);
+    const METObjectEndpoint = `${baseUrlMET}objects/${randomID}`;
+    axios.get(METObjectEndpoint)
+      .then(response => {
+        res.send(response.data);
+      })
+      .catch(err => console.log(err));
   },
   // relevant response values:
   // "primaryImage": "https://images.metmuseum.org/CRDImages/as/original/L37147_2011_575_3ab.jpg",
@@ -20,6 +25,8 @@ module.exports = {
 
   getMETquery(req, res) {
     // &isHighlight=true, returns objects marked as significant by the museum
+    const query = req.body.query || 'ocean';
+    const medium = req.body.medium || 'Paintings';
     const METQueryEndpoint = medium
       ? `${baseUrlMET}search?hasImages=true&medium=${medium}&q=${query}`
       : `${baseUrlMET}search?hasImages=true&q=${query}`;
