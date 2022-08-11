@@ -1,7 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/mvp_db', { useNewUrlParser: true })
+mongoose.connect(`mongodb://${process.env.MONGDODB_HOST}/mvp`, { useNewUrlParser: true })
   .then(console.log('mongoose connected successfully'))
   .catch(err => console.log('mongoose connection error:', err));
 
