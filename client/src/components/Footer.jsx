@@ -5,15 +5,15 @@ import { FlexContainer } from './Styles/styles_index.js';
 import { TextSpawnButton } from './Buttons/button_index.js';
 import { LogoutButton } from './Userfront.js';
 
-export default function Footer({ setMedia }) {
+export default function Footer({ getNewPoem }) {
   return (
     <StyledFooter>
-      <TextSpawnButton setState={setMedia} />
+      <TextSpawnButton clickHandler={getNewPoem} />
       <LogoutButton />
     </StyledFooter>
   );
 }
 
 const StyledFooter = styled(FlexContainer)`
-  justify-content: center;
+  justify-content: space-evenly;
 `;

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
 import {
   AppHeading,
@@ -7,6 +8,10 @@ import {
   TextEntry,
   Footer,
 } from './component_index.jsx';
+
+import { LogoutButton } from './Userfront.js';
+
+import { FlexContainer } from './Styles/styles_index.js';
 
 export default function NoteApp() {
   const [media, setMedia] = useState({});
@@ -19,6 +24,7 @@ export default function NoteApp() {
         const poem = {
           title: res.data.title,
           text: res.data.text,
+          type: 'text',
         };
         setMedia(poem);
       })
@@ -27,13 +33,16 @@ export default function NoteApp() {
     setMedia({});
   };
 
-  useEffect(() => {
-    getNewPoem();
-  }, []);
+  // useEffect(() => {
+  //   getNewPoem();
+  // }, []);
 
   return (
-    <>
-      <AppHeading />
+    <MainFlexContainer>
+      <HeaderFlexContainer>
+        <AppHeading />
+        <LogoutButton />
+      </HeaderFlexContainer>
       <MediaContainer
         media={media}
       />
@@ -44,6 +53,18 @@ export default function NoteApp() {
       <Footer
         getNewPoem={getNewPoem}
       />
-    </>
+    </MainFlexContainer>
   );
 }
+
+const MainFlexContainer = styled(FlexContainer)`
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+const HeaderFlexContainer = styled(FlexContainer)`
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+`;
