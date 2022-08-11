@@ -7,7 +7,7 @@ async function getNotes() {
   const res = await axios.get('/notes', {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${Userfront.accessToken()}`,
+      authorization: `Bearer ${Userfront.tokens.accessToken}`,
     },
   });
 
@@ -18,7 +18,7 @@ async function postNote(note) {
   const res = await axios.post('/notes', {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${Userfront.accessToken()}`,
+      authorization: `Bearer ${Userfront.tokens.accessToken}`,
     },
   });
 

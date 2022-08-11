@@ -6,6 +6,7 @@ import {
   Route,
   Link,
   Navigate,
+  useLocation,
 } from 'react-router-dom';
 import Userfront from '@userfront/react';
 
@@ -22,8 +23,7 @@ import {
   LogoutButton,
 } from './components/Userfront.js';
 
-
-
+// Userfront.init('6nz4ydmn');
 
 function App() {
   return (
@@ -46,10 +46,18 @@ function App() {
           </ul>
         </nav>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/reset" element={<PasswordReset />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/dashboard"
+            element={
+              // eslint-disable-next-line react/jsx-wrap-multilines
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
@@ -59,11 +67,6 @@ function App() {
 
 // ---- Userfront components ----
 function Home() {
-  if (Userfront.accessToken()) {
-    return (
-      <Navigate replace to="/dashboard" />
-    );
-  }
   return (
     <div>
       <h2>Sign Up</h2>
@@ -73,11 +76,6 @@ function Home() {
 }
 
 function Login() {
-  if (Userfront.accessToken()) {
-    return (
-      <Navigate replace to="/dashboard" />
-    );
-  }
   return (
     <div>
       <h2>Login</h2>
@@ -96,11 +94,6 @@ function PasswordReset() {
 }
 
 function Dashboard() {
-  if (!Userfront.accessToken()) {
-    return (
-      <Navigate replace to="/login" />
-    );
-  }
   const userData = JSON.stringify(Userfront.user, null, 2);
   return (
     <div>
@@ -109,6 +102,16 @@ function Dashboard() {
       <button type="button" onClick={Userfront.logout}>Logout</button>
     </div>
   );
+}
+
+function RequireAuth({ children }) {
+  const location = useLocation();
+  if (!Userfront.tokens.accessToken) {
+    return (
+      <Navigate to="/login" state={{ from: location }} replace />
+    );
+  }
+  return children;
 }
 
 function NotFound() {
