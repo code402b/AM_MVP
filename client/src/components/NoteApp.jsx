@@ -8,6 +8,7 @@ import {
   MediaContainer,
   TextEntry,
   Footer,
+  NoteList,
 } from './component_index.jsx';
 import { LogoutButton } from './Userfront.js';
 import { FlexContainer } from './Styles/styles_index.js';
@@ -29,9 +30,22 @@ export default function NoteApp() {
   //   });
   // };
 
+  const getNotes = () => {
+    axios.get('/notes', {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${Userfront.tokens.accessToken}`,
+      },
+    })
+      .then((res) => setNotes(res.data))
+      // .then(console.log('notes set'))
+      .catch((err) => console.log(err));
+  };
+
   const postNote = () => {
     const userId = Userfront.user.userId;
     const username = Userfront.user.name;
+    console.log(userId);
     axios.post(
       '/notes',
       {
@@ -50,8 +64,8 @@ export default function NoteApp() {
           authorization: `Bearer ${Userfront.tokens.accessToken}`,
         },
       },
-    )
-      .then(res => console.log('note posted', res))
+    ).then(getNotes())
+      .then(getNotes())
       .catch(err => console.log(err));
   };
 
@@ -88,20 +102,11 @@ export default function NoteApp() {
   };
 
   useEffect(() => {
-    axios.get('/notes', {
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: `Bearer ${Userfront.tokens.accessToken}`,
-      },
-    })
-      // .then((res) => console.log('get notes:', res.data))
-      .then((res) => setNotes(res.data))
-      .then(console.log('notes set'))
-      .catch((err) => console.log(err));
+    getNotes();
 
-    // axios.get('/metAPIQuery').then((res) => {
-    //   setMetIDs(res.data);
-    // });
+    axios.get('/metAPIQuery').then((res) => {
+      setMetIDs(res.data);
+    });
   }, []);
 
   return (
@@ -117,8 +122,10 @@ export default function NoteApp() {
         setInputText={setInputText}
         getNewPoem={getNewPoem}
         getNewImage={getNewImage}
+        setMedia={setMedia}
         metIDs={metIDs}
       />
+      <NoteList notes={notes} />
     </MainFlexContainer>
   );
 }

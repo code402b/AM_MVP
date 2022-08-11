@@ -8,11 +8,12 @@ import {
   SaveNoteButton,
   DiscardNoteButton,
 } from './Buttons/button_index.js';
-// import { LogoutButton } from './Userfront.js';
+import { LogoutButton } from './Userfront.js';
 
 export default function Footer({
   getNewPoem,
   getNewImage,
+  setMedia,
   metIDs,
   postNote,
   setInputText,
@@ -29,14 +30,18 @@ export default function Footer({
       <TextSpawnButton clickHandler={getNewPoem} />
       <ImageSpawnButton clickHandler={randomImage} />
       <SaveNoteButton clickHandler={postNote} />
-      <DiscardNoteButton clickHandler={setInputText} />
+      <DiscardNoteButton
+        setInputText={setInputText}
+        setMedia={setMedia}
+      />
+      {/* <LogoutButton /> */}
     </StyledFooter>
   );
 }
 
 const StyledFooter = styled(FlexContainer)`
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-evenly;
 
   width: 360px;
   margin: 10px;

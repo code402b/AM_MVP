@@ -12,7 +12,7 @@ module.exports = {
     const newNote = req.body;
     return Note.findOneAndUpdate(
       {
-        user: newNote.user,
+        userID: newNote.userID,
         text: newNote.text,
       },
       {

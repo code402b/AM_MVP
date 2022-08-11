@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export default function AppHeading() {
   return (
-    <Heading>Leaves of Grass</Heading>
+    <Heading>v0.1 Leaves of Grass</Heading>
   );
 }
 

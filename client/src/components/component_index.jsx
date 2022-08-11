@@ -5,3 +5,4 @@ export { default as MediaContainer } from './MediaContainer.jsx';
 export { default as DragDrop } from './DragDrop.jsx';
 export { default as TextEntry } from './TextEntry.jsx';
 export { default as Footer } from './Footer.jsx';
+export { default as NoteList } from './NoteList.jsx';
