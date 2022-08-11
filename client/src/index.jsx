@@ -11,6 +11,7 @@ import {
 import Userfront from '@userfront/react';
 
 import {
+  AppHeading,
   MediaContainer,
   TextEntry,
   Footer,
@@ -29,27 +30,19 @@ function App() {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/reset">Reset</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-          </ul>
-        </nav>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/reset" element={<PasswordReset />} />
           <Route
+            path="/"
+            element={(
+              <RequireAuth>
+                <Home />
+              </RequireAuth>
+            )}
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/reset" element={<PasswordReset />} />
+          {/* <Route
             path="/dashboard"
             element={
               // eslint-disable-next-line react/jsx-wrap-multilines
@@ -57,7 +50,7 @@ function App() {
                 <Dashboard />
               </RequireAuth>
             }
-          />
+          /> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
@@ -69,37 +62,53 @@ function App() {
 function Home() {
   return (
     <div>
-      <h2>Sign Up</h2>
-      <SignupForm />
+      <AppHeading />
+      <LogoutButton />
     </div>
   );
 }
 
 function Login() {
+  const location = useLocation();
+  if (Userfront.tokens.accessToken) {
+    return (
+      <Navigate to="/" state={{ from: location }} replace />
+    );
+  }
   return (
-    <div>
-      <h2>Login</h2>
+    <div id="login">
+      <AppHeading />
       <LoginForm />
+      <div id="loginFooter">
+        <Link to="/signup">Sign Up</Link>
+      </div>
+    </div>
+  );
+}
+
+function Signup() {
+  return (
+    <div id="signup">
+      <AppHeading />
+      <SignupForm />
     </div>
   );
 }
 
 function PasswordReset() {
   return (
-    <div>
-      <h2>Password Reset</h2>
+    <div id="reset">
+      <AppHeading />
       <PasswordResetForm />
     </div>
   );
 }
 
-function Dashboard() {
-  const userData = JSON.stringify(Userfront.user, null, 2);
+function NotFound() {
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <pre>{userData}</pre>
-      <button type="button" onClick={Userfront.logout}>Logout</button>
+    <div id="404">
+      <AppHeading />
+      <h2>404 Page not found</h2>
     </div>
   );
 }
@@ -114,9 +123,17 @@ function RequireAuth({ children }) {
   return children;
 }
 
-function NotFound() {
-  return <h2>404 Page not found</h2>;
-}
+// function Dashboard() {
+//   const userData = JSON.stringify(Userfront.user, null, 2);
+//   return (
+//     <div>
+//       <h2>Dashboard</h2>
+//       <pre>{userData}</pre>
+//       <LogoutButton />
+//       {/* <button type="button" onClick={Userfront.logout}>Logout</button> */}
+//     </div>
+//   );
+// }
 
 const root = createRoot(document.getElementById('root'));
 root.render(<App />);
