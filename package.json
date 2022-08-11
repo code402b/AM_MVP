@@ -6,6 +6,7 @@
   "author": "Anthony McGovern <mcgovern.anthony@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@userfront/core": "^0.4.4",
     "@userfront/react": "^0.3.1",
     "axios": "^0.24.0",
     "dotenv": "^16.0.1",

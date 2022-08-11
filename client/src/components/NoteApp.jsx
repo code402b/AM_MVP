@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Userfront from '@userfront/core';
 
 import {
   AppHeading,
@@ -8,14 +9,24 @@ import {
   TextEntry,
   Footer,
 } from './component_index.jsx';
-
 import { LogoutButton } from './Userfront.js';
-
 import { FlexContainer } from './Styles/styles_index.js';
+
+Userfront.init('6nz4ydmn');
 
 export default function NoteApp() {
   const [media, setMedia] = useState({});
+  const [metIDs, setMetIDs] = useState([]);
   const [inputText, setInputText] = useState('');
+
+  const postNote = () => {
+    const userId = Userfront.user.userId;
+    const username = Userfront.user.name;
+    axios.post('/notes', {
+      text: inputText,
+      media: media,
+    });
+  };
 
   const getNewPoem = () => {
     axios.get('/waltWhitmanPoem')
@@ -33,10 +44,9 @@ export default function NoteApp() {
     setMedia({});
   };
 
-  const getNewImage = () => {
-    axios.get('/metAPIObject')
+  const getNewImage = (id) => {
+    axios.get('/metAPIObject', { body: { id } })
       .then(res => {
-        // console.log('image res', res.data);
         const image = {
           title: res.data.title,
           culture: res.data.culture,
@@ -45,14 +55,18 @@ export default function NoteApp() {
           smallURL: res.data.primaryImageSmall,
           type: 'image',
         };
-        image.smallURL === '' ? setMedia(image) : getNewImage();
+        setMedia(image);
       })
       .catch(err => console.log(err));
   };
 
-  // useEffect(() => {
-  //   getNewImage();
-  // }, []);
+  useEffect(() => {
+    axios.get('/metAPIQuery')
+      .then(res => {
+        console.log('metIDs', res.data);
+        setMetIDs(res.data);
+      });
+  }, []);
 
   return (
     <MainFlexContainer>
@@ -70,6 +84,7 @@ export default function NoteApp() {
       <Footer
         getNewPoem={getNewPoem}
         getNewImage={getNewImage}
+        metIDs={metIDs}
       />
     </MainFlexContainer>
   );

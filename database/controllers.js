@@ -5,7 +5,8 @@ module.exports = {
     return Note.find().exec();
   },
 
-  addNoteOrUpdate(noteObj) {
+  addNoteOrUpdate(req, res) {
+
     return Note.findOneAndUpdate(
       {
         user: noteObj.user,
@@ -17,7 +18,6 @@ module.exports = {
         media: noteObj.media,
         mediaType: noteObj.mediaType,
         text: noteObj.text,
-        date: noteObj.date,
         favorite: noteObj.favorite,
         collection: noteObj.collection,
       },

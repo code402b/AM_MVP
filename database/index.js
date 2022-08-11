@@ -17,7 +17,7 @@ const noteSchema = new mongoose.Schema(
     mediaType: { type: String, index: true },
     text: String,
     favorite: { type: Boolean, default: false, index: true },
-    noteCollection: { type: String, index: true },
+    noteCollection: { type: String, default: 'none', index: true },
   },
   { timestamps: true },
 );

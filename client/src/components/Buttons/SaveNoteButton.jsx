@@ -1,7 +1,10 @@
 import React from 'react';
+import Userfront from '@userfront/core';
 
-export default function SaveNoteButton() {
+import { ActionButton } from '../Styles/styles_index.js';
+
+export default function SaveNoteButton({ clickHandler }) {
   return (
-    <div>SaveNoteButton</div>
+    <ActionButton onClick={() => console.log(Userfront.user)}>Save</ActionButton>
   );
 }

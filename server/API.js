@@ -25,12 +25,15 @@ module.exports = {
 
   getMETquery(req, res) {
     // &isHighlight=true, returns objects marked as significant by the museum
+    // const medium = req.body.medium || 'Paintings';
     const query = req.body.query || 'ocean';
-    const medium = req.body.medium || 'Paintings';
-    const METQueryEndpoint = medium
-      ? `${baseUrlMET}search?hasImages=true&medium=${medium}&q=${query}`
-      : `${baseUrlMET}search?hasImages=true&q=${query}`;
-    axios.get(METQueryEndpoint);
+    const METQueryEndpoint = `${baseUrlMET}search?hasImages=true&q=${query}`;
+    const mediumEndpoint = `${baseUrlMET}search?hasImages=true&medium=Paintings&q=${query}`;
+    axios.get(mediumEndpoint)
+      .then(response => {
+        res.send(response.data);
+      })
+      .catch(err => console.log(err));
   },
   // returns array of object ids:
   // "total": 184,

@@ -33,7 +33,7 @@ app.get('/notes', authenticateToken, controller.getNotes);
 app.post('/notes', authenticateToken, controller.addNoteOrUpdate);
 
 // External API Calls
-app.get('/metAPISearch', API.getMETquery);
+app.get('/metAPIQuery', API.getMETquery);
 app.get('/metAPIObject', API.getMETobject);
 app.get('/waltWhitmanPoem', API.getWaltWhitmanPoem);
 
