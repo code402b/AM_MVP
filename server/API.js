@@ -6,7 +6,7 @@ const waltWhitmanBaseURL = 'https://pafmon-walt-whitman-poems.p.rapidapi.com/poe
 const leavesOfGrassTitles = require('./APIdata.js');
 
 module.exports = {
-  getMETobject(id) {
+  getMETobject(req, res) {
     const METObjectEndpoint = `${baseUrlMET}objects/${id}`;
     axios.get(METObjectEndpoint);
   },
@@ -18,7 +18,7 @@ module.exports = {
   // "culture": "China",
   // "period": "Qing dynasty (1644–1911)",
 
-  getMETquery(query, medium) {
+  getMETquery(req, res) {
     // &isHighlight=true, returns objects marked as significant by the museum
     const METQueryEndpoint = medium
       ? `${baseUrlMET}search?hasImages=true&medium=${medium}&q=${query}`
@@ -29,7 +29,7 @@ module.exports = {
   // "total": 184,
   //  "objectIDs": [...ids]
 
-  getWaltWhitmanPoem() {
+  getWaltWhitmanPoem(req, res) {
     const randomIndex = Math.floor(Math.random() * 400);
     const title = leavesOfGrassTitles[randomIndex];
     const waltWhitmanPoemEndpoint = `${waltWhitmanBaseURL}${title}`;
@@ -38,7 +38,12 @@ module.exports = {
         'X-RapidAPI-Key': process.env.X_RAPID_API_KEY,
         'X-RapidAPI-Host': process.env.X_RAPID_API_HOST,
       },
-    });
+    })
+      .then(data => res.send(data))
+      .catch(err => {
+        console.log(err);
+        res.sendStatusCode(500);
+      });
   },
 
   // "index": "poem-name",

@@ -1,3 +1,4 @@
+export { default as NoteApp } from './NoteApp.jsx';
 export { default as Header } from './Header.jsx';
 export { default as AppHeading } from './AppHeading.jsx';
 export { default as MediaContainer } from './MediaContainer.jsx';

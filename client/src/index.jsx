@@ -11,17 +11,14 @@ import {
 import Userfront from '@userfront/react';
 
 import {
+  NoteApp,
   AppHeading,
-  MediaContainer,
-  TextEntry,
-  Footer,
 } from './components/component_index.jsx';
 
 import {
   SignupForm,
   LoginForm,
   PasswordResetForm,
-  LogoutButton,
 } from './components/Userfront.js';
 
 // Userfront.init('6nz4ydmn');
@@ -61,10 +58,11 @@ function App() {
 // ---- Userfront components ----
 function Home() {
   return (
-    <div>
-      <AppHeading />
-      <LogoutButton />
-    </div>
+    <NoteApp />
+    // <div>
+    //   <AppHeading />
+    //   <LogoutButton />
+    // </div>
   );
 }
 
