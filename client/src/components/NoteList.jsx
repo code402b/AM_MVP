@@ -6,7 +6,8 @@ export default function NoteList({ notes }) {
       {notes.map(note => (
         // eslint-disable-next-line no-underscore-dangle
         <li key={note._id}>
-          <span>{note.text} |</span>
+          <span>{note.text}</span>
+          <span>|</span>
           <span>{note.mediaTitle}</span>
         </li>
       ))}

@@ -2,9 +2,14 @@ const Note = require('./index.js');
 
 module.exports = {
   getNotes(req, res) {
-    console.log('hit get controller');
     Note.find({}).exec()
       .then((notes) => res.send(notes))
+      .catch((err) => res.send(err));
+  },
+
+  deleteNote(req, res) {
+    Note.findByIdAndRemove(req.params.id).exec()
+      .then(() => res.send('Note deleted'))
       .catch((err) => res.send(err));
   },
 
@@ -28,7 +33,8 @@ module.exports = {
       {
         upsert: true,
       },
-    ).exec();
+    ).exec()
+      .then((note) => res.send(note));
   },
 
 };

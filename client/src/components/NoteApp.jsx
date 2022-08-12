@@ -43,6 +43,7 @@ export default function NoteApp() {
   };
 
   const postNote = () => {
+    // eslint-disable-next-line prefer-destructuring
     const userId = Userfront.user.userId;
     const username = Userfront.user.name;
     console.log(userId);
@@ -64,7 +65,7 @@ export default function NoteApp() {
           authorization: `Bearer ${Userfront.tokens.accessToken}`,
         },
       },
-    ).then(getNotes())
+    ).then(res => console.log(res.data))
       .then(getNotes())
       .catch(err => console.log(err));
   };
