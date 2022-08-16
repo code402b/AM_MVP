@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/notes', authenticateToken, controller.getNotes);
 app.post('/notes', authenticateToken, controller.addNoteOrUpdate);
-app.delete('/notes', authenticateToken, controller.deleteNote);
+app.delete('/notes/:id', authenticateToken, controller.deleteNote);
 
 // External API Calls
 app.get('/metAPIQuery', API.getMETquery);

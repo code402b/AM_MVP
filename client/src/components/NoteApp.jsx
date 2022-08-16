@@ -46,7 +46,8 @@ export default function NoteApp() {
     // eslint-disable-next-line prefer-destructuring
     const userId = Userfront.user.userId;
     const username = Userfront.user.name;
-    console.log(userId);
+    // setInputText('');
+    // setMedia({});
     axios.post(
       '/notes',
       {
@@ -68,6 +69,16 @@ export default function NoteApp() {
     ).then(res => console.log(res.data))
       .then(getNotes())
       .catch(err => console.log(err));
+  };
+
+  const deleteNote = (id) => {
+    axios.delete(`/notes/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${Userfront.tokens.accessToken}`,
+      },
+    })
+      .then(getNotes());
   };
 
   const getNewPoem = () => {
@@ -126,7 +137,12 @@ export default function NoteApp() {
         setMedia={setMedia}
         metIDs={metIDs}
       />
-      <NoteList notes={notes} />
+      <NoteList
+        notes={notes}
+        deleteNote={deleteNote}
+        setInputText={setInputText}
+        setMedia={setMedia}
+      />
     </MainFlexContainer>
   );
 }
